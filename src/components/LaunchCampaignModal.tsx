@@ -54,12 +54,24 @@ export function LaunchCampaignModal({ open, onOpenChange, onLaunched }: Props) {
   }
 
   async function handleSubmit() {
-    if (!subject.trim()) return toast.error("Subject is required");
-    if (!body.trim()) return toast.error("Email body is required");
-    if (emails.length === 0) return toast.error("Add at least one recipient");
+    if (!subject.trim()) {
+      toast.error("Subject is required");
+      return;
+    }
+    if (!body.trim()) {
+      toast.error("Email body is required");
+      return;
+    }
+    if (emails.length === 0) {
+      toast.error("Add at least one recipient");
+      return;
+    }
 
     const when = sendAt ? new Date(sendAt) : new Date();
-    if (Number.isNaN(when.getTime())) return toast.error("Invalid schedule date");
+    if (Number.isNaN(when.getTime())) {
+      toast.error("Invalid schedule date");
+      return;
+    }
 
     setSubmitting(true);
     try {
